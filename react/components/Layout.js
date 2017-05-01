@@ -4,13 +4,7 @@ import BackButton from './BackButton.js';
 
 const Layout = (props) => {
   return(
-    <div>
-      <BackButton />
-      <span>
-        Bicycle Diaries
-      </span>
-      <br />
-      <Link to='/'> Home </Link>
+    <div className="row">
       { props.children }
     </div>
   )
