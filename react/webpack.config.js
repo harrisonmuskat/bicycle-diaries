@@ -9,8 +9,12 @@ var config = {
   module: {
     loaders: [
       {
+        test: /\.css$/,
+        loader: "css-loader"
+      },
+      {
         test: /\.scss$/,
-        loaders: ["style-loader", "css-loader", "sass-loader"]
+        loaders: ["style-loader", "sass-loader"]
       },
       {
         test: /\.jsx?$/,

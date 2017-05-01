@@ -1,8 +1,7 @@
 require 'coveralls'
+Coveralls.wear!('rails')
 require 'database_cleaner'
 require 'omniauth'
-
-Coveralls.wear!('rails')
 
 OmniAuth.config.test_mode = true
   omniauth_hash = { 'provider' => 'strava',

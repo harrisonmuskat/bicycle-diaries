@@ -13,8 +13,10 @@ RSpec.describe "unauthenticated user logs in" do
     auth = OmniAuth.config.mock_auth[:strava]
     click_link "Sign In with Strava"
 
-    expect(page).to have_content "Logged in!"
-    expect(page).to have_content auth["info"]["email"]
+    expect(page).to have_content auth["info"]["first_name"]
+    expect(page).to have_content auth["info"]["last_name"]
+    expect(page).to have_link "Sign Out"
+
   end
 
   it "authenticated user can log out" do
@@ -24,6 +26,6 @@ RSpec.describe "unauthenticated user logs in" do
     click_link "Sign In with Strava"
 
     click_link "Sign Out"
-    expect(page).to have_content "Logged out!"
+    expect(page).to have_link "Sign In with Strava"
   end
 end

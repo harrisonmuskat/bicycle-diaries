@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
-// import 'react-datepicker/dist/react-datepicker.css';
-
 class DateField extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +19,7 @@ class DateField extends Component {
   }
 
   render() {
-    return <DateField
+    return <DatePicker
       selected={this.state.activityDate}
       onChange={this.handleChange}
     />;
