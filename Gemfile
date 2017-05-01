@@ -8,6 +8,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'foundation-rails'
 gem 'omniauth-strava'
+gem 'strava-api-v3'
 
 group :development do
   gem 'listen', '~> 3.0.5'
