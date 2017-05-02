@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   validates :email, :provider, :uid, presence: true
-  validates :email, :provider, :uid, uniqueness: true
+  validates :email, :uid, uniqueness: true
 
   has_many :rides
 

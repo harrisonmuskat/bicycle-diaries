@@ -5,8 +5,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: null,
-      activities: []
+      currentUser: null
     }
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
@@ -39,7 +38,10 @@ class App extends Component {
   render() {
     return(
       <div>
-        <ActivityFormContainer handleFormSubmit={this.handleFormSubmit}/>
+        <ActivityFormContainer
+          handleFormSubmit={this.handleFormSubmit}
+          currentUser={this.state.currentUser}
+        />
       </div>
     );
   }

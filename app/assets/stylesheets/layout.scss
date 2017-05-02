@@ -10,6 +10,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .form-header {
   font-family: 'Montserrat', sans-serif;
+  font-size: 1.5em;
   text-align: center;
 }
 
@@ -18,5 +19,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .site-title {
+  text-align: center;
+}
+
+.activity-card {
+  border-radius: 1em;
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.30);
+}
+
+.ride-title {
   text-align: center;
 }
