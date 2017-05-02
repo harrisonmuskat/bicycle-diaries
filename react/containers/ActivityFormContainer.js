@@ -43,7 +43,7 @@ class ActivityFormContainer extends Component {
     return(
       <div>
         <div className="small-6 small-centered columns">
-          <h2 className="form-header"> Retrieve all activities after: </h2>
+          <h2 className="form-header"> Pick a date to retrieve all activities beginning from that day: </h2>
           <div className="row">
             <div className="small-4 small-centered columns">
               <form onSubmit={this.props.handleFormSubmit}>
