@@ -2,6 +2,7 @@ class User < ApplicationRecord
   validates :email, :provider, :uid, presence: true
   validates :email, :provider, :uid, uniqueness: true
 
+  has_many :rides
 
   def self.find_or_create_from_auth_hash(auth)
     User.find_or_create_by(provider: auth["provider"], uid: auth["extra"]["raw_info"]["id"]) do |user|

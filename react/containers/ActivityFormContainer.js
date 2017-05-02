@@ -14,6 +14,7 @@ class ActivityFormContainer extends Component {
 
   handleCalendarChange(date) {
     this.setState( {selectedDate: date} )
+    // fetch corresponding activities here
   }
 
   render() {
@@ -27,6 +28,10 @@ class ActivityFormContainer extends Component {
                 <DatePicker
                   selected={this.state.selectedDate}
                   onChange={this.handleCalendarChange}
+                  maxDate={moment()}
+                  popoverAttachment="bottom center"
+                  popoverTargetAttachment="top center"
+                  popoverTargetOffset="0px 0px"
                   />
                 <input type="submit" value="Find activities" />
               </form>

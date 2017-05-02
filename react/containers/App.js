@@ -34,7 +34,6 @@ class App extends Component {
 
   handleFormSubmit(event) {
     event.preventDefault();
-    
   }
 
   render() {
