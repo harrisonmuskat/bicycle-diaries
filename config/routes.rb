@@ -3,4 +3,10 @@ Rails.application.routes.draw do
   root to: "application#index"
   get '/auth/strava/callback', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
+
+  namespace :api do
+    namespace :v1 do
+      resource :user, only: [:show]
+    end
+  end
 end
