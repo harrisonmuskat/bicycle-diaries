@@ -8,6 +8,7 @@ class ActivityDisplay extends Component {
 
     this.convertToMiles = this.convertToMiles.bind(this);
     this.convertToMph = this.convertToMph.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   convertToMiles(distance) {
@@ -20,6 +21,18 @@ class ActivityDisplay extends Component {
     return Math.round(convertedSpeed * 10)/10;
   }
 
+  handleClick(fullActivity) {
+    fetch("api/v1/ride", {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(fullActivity)
+    })
+    this.props.moveToSide(fullActivity);
+  }
+
   render() {
     let activities = this.props.activities.map(activity => {
       return(
@@ -30,6 +43,7 @@ class ActivityDisplay extends Component {
           start_date={moment(activity.start_date).format('LL')}
           distance={this.convertToMiles(activity.distance)}
           averageSpeed={this.convertToMph(activity.average_speed)}
+          handleClick={this.handleClick}
         />
       )
     })
