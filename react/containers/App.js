@@ -63,9 +63,9 @@ class App extends Component {
         <RideFormContainer
           rideFormCssClass={this.state.rideFormCssClass}
           activity={this.state.currentActivity}
+          handleFormSubmit={this.handleFormSubmit}
         />
         <ActivityFormContainer
-          handleFormSubmit={this.handleFormSubmit}
           currentUser={this.state.currentUser}
           moveToSide={this.moveToSide}
           mainCssClass={this.state.mainCssClass}

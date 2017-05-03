@@ -45,7 +45,7 @@ class ActivityFormContainer extends Component {
         <h2 className="form-header"> Pick a date to retrieve all activities beginning from that day: </h2>
         <div className="row">
           <div className={this.props.childCssClass}>
-            <form onSubmit={this.props.handleFormSubmit}>
+            <form>
               <DatePicker
                 selected={this.state.selectedDate}
                 onChange={this.handleCalendarChange}
