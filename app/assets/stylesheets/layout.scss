@@ -8,6 +8,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Homemade Apple', cursive;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .form-header {
   font-family: 'Montserrat', sans-serif;
   font-size: 1.25em;
@@ -26,6 +30,21 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 1em;
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.30);
   text-align: center;
+}
+
+.hvr-grow {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  transition-duration: 0.3s;
+  transition-property: transform;
+}
+
+.hvr-grow:hover,
+.hvr-grow:focus,
+.hvr-grow:active {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .ride-title {

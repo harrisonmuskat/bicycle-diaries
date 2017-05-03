@@ -3,25 +3,11 @@ import React, { Component } from 'react';
 class ActivityCard extends Component {
   constructor(props) {
     super(props);
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(event) {
-    event.preventDefault();
-    fetch("api/v1/ride", {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.props.fullActivity)
-    })
   }
 
   render() {
     return(
-      <div className="card activity-card" onClick={this.handleClick}>
+      <div className="card activity-card hvr-grow" onClick={() => {this.props.handleClick(this.props.fullActivity)}}>
         <div className="card-divider ride-title">
           <div className="row">
             <div className="small-6 columns">
