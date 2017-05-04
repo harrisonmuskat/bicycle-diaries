@@ -1,13 +1,12 @@
 import React from 'react';
 
-const TextField = props => {
+const TextArea = props => {
   return (
     <label>{props.label}
-      <input
-        className="textfield"
+      <textarea rows="10"
+        className="textarea"
         name={props.name}
         onChange={props.handlerFunction}
-        type='text'
         value={props.content}
         placeholder={props.placeholder}
       />
@@ -15,4 +14,4 @@ const TextField = props => {
   );
 }
 
-export default TextField;
+export default TextArea;

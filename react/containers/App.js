@@ -13,7 +13,7 @@ class App extends Component {
       rideFormCssClass: "hidden",
       currentActivity: null
     }
-    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+
     this.moveToSide = this.moveToSide.bind(this);
   }
 
@@ -38,17 +38,17 @@ class App extends Component {
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
-  handleFormSubmit(event) {
-    event.preventDefault();
-  }
-
   moveToSide(activity) {
     if(!this.state.side) {
       this.setState({ mainCssClass: "small-4 columns",
                       childCssClass: "small-12 small-centered columns",
-                      rideFormCssClass: "small-8 columns",
+                      rideFormCssClass: "small-8 columns ride-form",
+                      side: true,
                       currentActivity: activity
                     })
+    }
+    else if(this.state.side == true && this.state.currentActivity !== activity) {
+      this.setState( {currentActivity: activity} )
     } else {
       this.setState({ mainCssClass: "small-6 small-centered columns",
                       childCssClass: "small-4 small-centered columns",
@@ -63,7 +63,6 @@ class App extends Component {
         <RideFormContainer
           rideFormCssClass={this.state.rideFormCssClass}
           activity={this.state.currentActivity}
-          handleFormSubmit={this.handleFormSubmit}
         />
         <ActivityFormContainer
           currentUser={this.state.currentUser}

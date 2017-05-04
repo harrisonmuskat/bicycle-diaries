@@ -46,7 +46,7 @@ class ActivityFormContainer extends Component {
         <div className="row">
           <div className={this.props.childCssClass}>
             <form>
-              <DatePicker
+              <DatePicker className="datepicker"
                 selected={this.state.selectedDate}
                 onChange={this.handleCalendarChange}
                 maxDate={moment()}
