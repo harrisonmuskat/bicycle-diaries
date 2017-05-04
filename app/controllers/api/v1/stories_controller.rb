@@ -3,11 +3,12 @@ class Api::V1::StoriesController < ApplicationController
 
   def create
     ride = Ride.find_by(ride_id: params["ride_id"].to_s)
-    Story.create(
+    story = Story.create(
       ride: ride,
       title: params["name"],
       body: params["body"]
     )
-    render :
+    message = story.errors.full_messages
+    render :json => message
   end
 end

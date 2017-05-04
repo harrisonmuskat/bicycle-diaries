@@ -54,6 +54,10 @@ class RideFormContainer extends Component {
         },
         body: storyPayload
       })
+      .then(response => response.json())
+      .then(body => {
+        debugger;
+      })
     }
   }
 
