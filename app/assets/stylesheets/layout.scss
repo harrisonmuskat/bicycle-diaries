@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Homemade+Apple|Montserrat');
+@import "settings";
 
 body {
   font-family: 'Montserrat', sans-serif;
@@ -9,7 +10,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hidden {
-  visibility: hidden;
+  display: none;
 }
 
 .form-header {
@@ -49,4 +50,28 @@ h1, h2, h3, h4, h5, h6 {
 
 .ride-title {
   text-align: center;
+}
+
+.ride-form {
+  border-radius: 1em;
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.30);
+  background-color: $light-gray;
+}
+
+.datepicker {
+  border-radius: 1em;
+  text-align: center;
+}
+
+.textarea {
+  border-radius: 1em;
+}
+
+.textfield {
+  border-radius: 1em;
+  width: 50%;
+}
+
+input {
+  border-radius: 1em;
 }
