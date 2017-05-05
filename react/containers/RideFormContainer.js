@@ -8,7 +8,8 @@ class RideFormContainer extends Component {
     this.state = {
       activityName: "",
       activityBody: "",
-      errors: []
+      errors: [],
+      success: ""
     }
 
     this.handleTitleFieldChange = this.handleTitleFieldChange.bind(this);
@@ -43,6 +44,7 @@ class RideFormContainer extends Component {
 
   handleFormSubmit(event) {
     event.preventDefault();
+    this.setState( {success: ""} )
     this.validatePayload();
     let storyPayload = JSON.stringify({name: this.state.activityName, body: this.state.activityBody, ride_id: this.props.activity.id})
     if(this.state.errors.length == 0) {
@@ -56,7 +58,15 @@ class RideFormContainer extends Component {
       })
       .then(response => response.json())
       .then(body => {
-        debugger;
+        if(body.length !== 0) {
+          let newErrors = body
+          this.setState( {errors: newErrors} )
+        } else {
+          this.setState( {activityName: "",
+                          activityBody: "",
+                          success: "Story submitted!"} )
+          this.props.handleFormShift();
+        }
       })
     }
   }
@@ -67,15 +77,20 @@ class RideFormContainer extends Component {
         <li>{error}</li>
       )
     })
-    let errorDiv = null
+    let errorDiv = null;
     if(errors.length > 0) {
       errorDiv = <div className="callout alert"><ul>{errors}</ul></div>
+    }
+    let successDiv = null;
+    if(this.state.success !== "") {
+      successDiv = <div className="callout success">{this.state.success}</div>
     }
     return(
       <div className={this.props.rideFormCssClass}>
         <h2 className="form-header"> Tell your story here: </h2>
         <form onSubmit={this.handleFormSubmit}>
           {errorDiv}
+          {successDiv}
           <TextField
             content={this.state.activityName}
             label='Ride title'

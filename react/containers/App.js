@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ActivityFormContainer from './ActivityFormContainer';
 import RideFormContainer from './RideFormContainer';
+import StoryContainer from './StoryContainer'
 
 class App extends Component {
   constructor(props) {
@@ -11,10 +12,13 @@ class App extends Component {
       mainCssClass: "small-6 small-centered columns",
       childCssClass: "small-4 small-centered columns",
       rideFormCssClass: "hidden",
-      currentActivity: null
+      currentActivity: null,
+      showStoryContainer: false
     }
 
     this.moveToSide = this.moveToSide.bind(this);
+    this.handleFormShift = this.handleFormShift.bind(this);
+    this.sleep = this.sleep.bind(this);
   }
 
   componentDidMount() {
@@ -57,21 +61,52 @@ class App extends Component {
     }
   }
 
+  handleFormShift() {
+    this.sleep(2000).then(() => {
+        this.setState( {rideFormCssClass: "hidden",
+                        showStoryContainer: true}
+                      )
+    });
+  }
+
+  sleep(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
+
+
   render() {
-    return(
-      <div className="row">
-        <RideFormContainer
-          rideFormCssClass={this.state.rideFormCssClass}
-          activity={this.state.currentActivity}
-        />
-        <ActivityFormContainer
-          currentUser={this.state.currentUser}
-          moveToSide={this.moveToSide}
-          mainCssClass={this.state.mainCssClass}
-          childCssClass={this.state.childCssClass}
-        />
-      </div>
-    );
+    if(this.state.currentUser == null) {
+      return(
+        <div className="row">
+          <div className="small-4 small-centered columns">
+            <div className="callout primary large sign-in">
+              Please sign in to post your first story!
+            </div>
+          </div>
+        </div>
+      )
+    } else {
+      let stories;
+      if(this.state.showStoryContainer) {
+        stories = <StoryContainer/>;
+      }
+      return(
+        <div className="row">
+          <RideFormContainer
+            rideFormCssClass={this.state.rideFormCssClass}
+            activity={this.state.currentActivity}
+            handleFormShift={this.handleFormShift}
+          />
+          {stories}
+          <ActivityFormContainer
+            currentUser={this.state.currentUser}
+            moveToSide={this.moveToSide}
+            mainCssClass={this.state.mainCssClass}
+            childCssClass={this.state.childCssClass}
+          />
+        </div>
+      );
+    }
   }
 }
 

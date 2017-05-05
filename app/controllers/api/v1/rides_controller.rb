@@ -11,7 +11,7 @@ class Api::V1::RidesController < ApplicationController
       ride.moving_time_in_seconds = params["moving_time"]
       ride.elapsed_time_in_seconds = params["elapsed_time"]
       ride.total_elevation_gain = params["total_elevation_gain"]
-      ride.type = params["type"]
+      ride.ride_type = params["type"]
       ride.start_date = params["start_date"]
       ride.average_speed = params["average_speed"]
     end

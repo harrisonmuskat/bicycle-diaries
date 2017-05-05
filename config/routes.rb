@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resource :user, only: [:show]
       resource :ride, only: [:create]
-      resources :stories
+      resources :stories, only: [:index, :create]
     end
   end
 end
