@@ -9,6 +9,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Homemade Apple', cursive;
 }
 
+.sign-in {
+  margin-top: 3em;
+}
+
 .hidden {
   display: none;
 }
@@ -31,6 +35,11 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 1em;
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.30);
   text-align: center;
+}
+
+.story-card {
+  border-radius: 1em;
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.30);
 }
 
 .hvr-grow {

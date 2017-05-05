@@ -3,6 +3,7 @@ class User < ApplicationRecord
   validates :email, :uid, uniqueness: true
 
   has_many :rides
+  has_many :stories
 
   def self.find_or_create_from_auth_hash(auth)
     User.find_or_create_by(provider: auth["provider"], uid: auth["extra"]["raw_info"]["id"]) do |user|

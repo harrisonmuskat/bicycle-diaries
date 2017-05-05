@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504174350) do
+ActiveRecord::Schema.define(version: 20170505024535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20170504174350) do
     t.integer  "moving_time_in_seconds"
     t.integer  "elapsed_time_in_seconds"
     t.float    "total_elevation_gain"
-    t.string   "type",                    null: false
+    t.string   "ride_type",               null: false
     t.datetime "start_date",              null: false
     t.float    "average_speed"
     t.datetime "created_at",              null: false
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20170504174350) do
     t.text     "body",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
     t.index ["ride_id"], name: "index_stories_on_ride_id", using: :btree
   end
 
