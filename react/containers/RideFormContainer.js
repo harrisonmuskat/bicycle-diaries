@@ -15,6 +15,7 @@ class RideFormContainer extends Component {
     this.handleTitleFieldChange = this.handleTitleFieldChange.bind(this);
     this.handleBodyFieldChange = this.handleBodyFieldChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleClearForm = this.handleClearForm.bind(this);
     this.validatePayload = this.validatePayload.bind(this);
   }
 
@@ -69,6 +70,14 @@ class RideFormContainer extends Component {
         }
       })
     }
+  }
+
+  handleClearForm() {
+    this.setState({
+      activityName: "",
+      activityBody: "",
+      errors: []
+    })
   }
 
   render() {

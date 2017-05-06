@@ -21,7 +21,7 @@ class App extends Component {
     this.sleep = this.sleep.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     fetch('/api/v1/user', {
           credentials: 'same-origin',
           method: 'GET'

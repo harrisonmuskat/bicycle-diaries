@@ -13,10 +13,14 @@
 
   <body>
     <div class="top-bar">
+      <div class="top-bar-title">
+        <a href="/">Bicycle Diaries</a>
+      </div>
       <div class="top-bar-right">
         <ul class="menu">
           <% if logged_in? %>
             <li>Signed in as <%= "#{current_user.firstname} #{current_user.lastname}" %></li>
+            <li><a href="/profile">Profile</a></li>
             <li><%= link_to "Sign Out", logout_path, method: :delete, class: "button" %></li>
           <% else %>
             <li><%= link_to "Sign In with Strava", "/auth/strava", class: "button" %></li>

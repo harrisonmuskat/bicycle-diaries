@@ -7,8 +7,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resource :user, only: [:show]
-      resource :ride, only: [:create]
+      get '/:user_id/rides', to: 'rides#userrides'
+      resources :rides, only: [:index, :create]
       resources :stories, only: [:index, :create]
     end
   end
+
+  get "*path", to: "application#index"
 end
