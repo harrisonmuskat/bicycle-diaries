@@ -13,11 +13,17 @@ class ActivityFormContainer extends Component {
 
     this.handleCalendarChange = this.handleCalendarChange.bind(this);
     this.getActivities = this.getActivities.bind(this);
+    this.handleClearForm = this.handleClearForm.bind(this);
   }
 
   handleCalendarChange(date) {
     this.getActivities(date);
     this.setState( {selectedDate: date} )
+  }
+
+  handleClearForm() {
+    this.setState( {selectedDate: moment(),
+                    activities: []})
   }
 
   getActivities(date) {
@@ -60,6 +66,7 @@ class ActivityFormContainer extends Component {
         <ActivityDisplay
           activities={this.state.activities}
           moveToSide={this.props.moveToSide}
+          handleClearForm={this.handleClearForm}
         />
       </div>
     );

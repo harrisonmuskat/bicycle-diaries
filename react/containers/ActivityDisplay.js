@@ -5,6 +5,9 @@ import moment from 'moment';
 class ActivityDisplay extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      saveMessage: ""
+    }
 
     this.convertToMiles = this.convertToMiles.bind(this);
     this.convertToMph = this.convertToMph.bind(this);
@@ -22,7 +25,7 @@ class ActivityDisplay extends Component {
   }
 
   handleClick(fullActivity) {
-    fetch("api/v1/ride", {
+    fetch("api/v1/rides", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -30,7 +33,17 @@ class ActivityDisplay extends Component {
       },
       body: JSON.stringify(fullActivity)
     })
-    this.props.moveToSide(fullActivity);
+    .then(response => response.json())
+    .then(body => {
+      if(body.message == "Save successful!") {
+        this.props.handleClearForm();
+        this.props.moveToSide(fullActivity);
+        this.setState( {saveMessage: body.message} )
+      }
+      else {
+        this.setState( {saveMessage: body.message} )
+      }
+    })
   }
 
   render() {
@@ -54,6 +67,7 @@ class ActivityDisplay extends Component {
     return (
       <div>
         <p>{helpText}</p>
+        <p>{this.state.saveMessage}</p>
         {activities}
       </div>
     )
