@@ -37,7 +37,7 @@ class ActivityDisplay extends Component {
     .then(body => {
       if(body.message == "Save successful!") {
         this.props.handleClearForm();
-        this.props.moveToSide(fullActivity);
+        this.props.showRideForm(fullActivity);
         this.setState( {saveMessage: body.message} )
         setTimeout(function(){
              this.setState( {saveMessage:""} );

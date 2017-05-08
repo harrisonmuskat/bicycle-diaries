@@ -1,9 +1,37 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import MapComponent from './MapComponent';
 
 class StoryCard extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      polyline: ""
+    }
+
+    this.fetchPolyline = this.fetchPolyline.bind(this);
+  }
+
+  fetchPolyline() {
+    fetch(`/api/v1/rides/${this.props.rideId}`)
+    .then(response => {
+      if(response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+        error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState( {polyline: body.map.summary_polyline} )
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
+  componentDidMount() {
+    this.fetchPolyline();
   }
 
   render() {
@@ -23,6 +51,15 @@ class StoryCard extends Component {
           <div className="row">
             <div className="small-12 columns">
               {this.props.body}
+            </div>
+          </div>
+        </div>
+        <div className="card-section">
+          <div className="row">
+            <div className="small-12 columns">
+              <MapComponent
+                polyline={this.state.polyline}
+              />
             </div>
           </div>
         </div>

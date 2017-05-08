@@ -6,9 +6,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resource :user, only: [:show]
+      resources :users, only: [:show]
+      get '/user', to: 'users#getcurrentuser'
       get '/:user_id/rides', to: 'rides#userrides'
-      resources :rides, only: [:index, :create]
+      resources :rides, only: [:index, :create, :show]
       resources :stories, only: [:index, :create]
     end
   end

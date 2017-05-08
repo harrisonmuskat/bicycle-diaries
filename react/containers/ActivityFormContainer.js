@@ -65,7 +65,7 @@ class ActivityFormContainer extends Component {
         </div>
         <ActivityDisplay
           activities={this.state.activities}
-          moveToSide={this.props.moveToSide}
+          showRideForm={this.props.showRideForm}
           handleClearForm={this.handleClearForm}
         />
       </div>

@@ -10,7 +10,7 @@ class ProfileContainer extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/v1/user', {
+    fetch(`/api/v1/users/${this.props.params.userId}`, {
           credentials: 'same-origin',
           method: 'GET'
       })
