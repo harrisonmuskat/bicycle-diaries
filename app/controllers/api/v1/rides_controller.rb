@@ -3,7 +3,7 @@ class Api::V1::RidesController < ApplicationController
 
   def index
     rides = Ride.all
-    render :json => rides
+    render json: rides
   end
 
   def create
@@ -32,12 +32,17 @@ class Api::V1::RidesController < ApplicationController
       coordinates.end_latitude = params["end_latlng"][0]
       coordinates.end_longitude = params["end_latlng"][1]
     end
-    render :json => message
+    render json: message
+  end
+
+  def show
+    ride = Ride.find(params["id"])
+    render json: ride
   end
 
   def userrides
     user = User.find(params[:user_id])
     rides = Ride.where(user: user)
-    render :json => rides
+    render json: rides
   end
 end

@@ -9,6 +9,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Homemade Apple', cursive;
 }
 
+.map-title {
+  font-family: 'Montserrat', sans-serif;
+}
+
 // fix PR
 .sign-in {
   margin-top: 3em;
@@ -84,4 +88,8 @@ h1, h2, h3, h4, h5, h6 {
 
 input {
   border-radius: 1em;
+}
+
+.map-container {
+  height: 500px;
 }

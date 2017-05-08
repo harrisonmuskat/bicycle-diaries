@@ -7,9 +7,11 @@ class StoryContainer extends Component {
     this.state = {
       stories: []
     }
+
+    this.fetchStories = this.fetchStories.bind(this);
   }
 
-  componentDidMount() {
+  fetchStories() {
     fetch('/api/v1/stories')
     .then(response => {
       if(response.ok) {
@@ -27,6 +29,10 @@ class StoryContainer extends Component {
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
+  componentWillMount() {
+    this.fetchStories();
+  }
+
   render() {
     let stories;
     if(this.state.stories.length > 0){
@@ -39,6 +45,7 @@ class StoryContainer extends Component {
             userFirstName={story.user.firstname}
             userLastName={story.user.lastname}
             userId={story.user.id}
+            rideId={story.ride.id}
           />
         )
       })

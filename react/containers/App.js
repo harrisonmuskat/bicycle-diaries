@@ -13,7 +13,7 @@ class App extends Component {
       showStoryContainer: true
     }
 
-    this.moveToSide = this.moveToSide.bind(this);
+    this.showRideForm = this.showRideForm.bind(this);
     this.handleFormShift = this.handleFormShift.bind(this);
     this.sleep = this.sleep.bind(this);
   }
@@ -39,7 +39,7 @@ class App extends Component {
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
-  moveToSide(activity) {
+  showRideForm(activity) {
     if(this.state.currentActivity !== activity) {
       this.setState( {rideFormCssClass: "small-8 columns ride-form",
                       currentActivity: activity} )
@@ -87,7 +87,7 @@ class App extends Component {
           {stories}
           <ActivityFormContainer
             currentUser={this.state.currentUser}
-            moveToSide={this.moveToSide}
+            showRideForm={this.showRideForm}
             mainCssClass={this.state.mainCssClass}
             childCssClass={this.state.childCssClass}
           />
