@@ -39,9 +39,15 @@ class ActivityDisplay extends Component {
         this.props.handleClearForm();
         this.props.moveToSide(fullActivity);
         this.setState( {saveMessage: body.message} )
+        setTimeout(function(){
+             this.setState( {saveMessage:""} );
+        }.bind(this),1000);
       }
       else {
         this.setState( {saveMessage: body.message} )
+        setTimeout(function(){
+             this.setState( {saveMessage:""} );
+        }.bind(this),500);
       }
     })
   }

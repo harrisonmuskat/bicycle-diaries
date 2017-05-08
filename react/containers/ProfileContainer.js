@@ -5,11 +5,8 @@ class ProfileContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {},
-      currentUserRides: []
+      currentUser: {}
     }
-
-    this.getCurrentUserRides = this.getCurrentUserRides.bind(this)
   }
 
   componentDidMount() {
@@ -28,35 +25,17 @@ class ProfileContainer extends Component {
       })
       .then(response => response.json())
       .then(body => {
-        this.setState( {currentUser: body.user},
-          function() {
-            this.getCurrentUserRides(this.state.currentUser);
-          });
+        this.setState( {currentUser: body} );
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
-  getCurrentUserRides(user) {
-    fetch(`/api/v1/${this.state.currentUser.id}/rides`)
-    .then(response => {
-      if(response.ok) {
-        return response;
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-        throw(error);
-      }
-    })
-    .then(response => response.json())
-    .then(body => {
-      this.setState( {currentUserRides: body} )
-    })
-    .catch(error => console.error(`Error in fetch: ${error.message}`));
-  }
-
   render() {
     let actual_time = moment(this.state.currentUser.created_at).format("dddd, MMMM Do YYYY")
-    let rides = this.state.currentUserRides.length
+    let rides;
+    if(this.state.currentUser.rides !== undefined) {
+      rides = this.state.currentUser.rides.length
+    }
     return(
       <div className="card-profile-stats">
         <div className="card-profile-stats-intro">
@@ -75,12 +54,8 @@ class ProfileContainer extends Component {
             <p>Rides</p>
           </div>
           <div className="card-profile-stats-statistic">
-            <span className="stat">125</span>
-            <p>followers</p>
-          </div>
-          <div className="card-profile-stats-statistic">
-            <span className="stat">88</span>
-            <p>likes</p>
+            <span className="stat">0</span>
+            <p>Friends</p>
           </div>
         </div>
       </div>
