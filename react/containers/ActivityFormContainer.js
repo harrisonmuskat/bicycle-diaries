@@ -47,10 +47,10 @@ class ActivityFormContainer extends Component {
 
   render() {
     return(
-      <div className={this.props.mainCssClass}>
+      <div className="small-4 columns">
         <h2 className="form-header"> Pick a date to retrieve all activities beginning from that day: </h2>
         <div className="row">
-          <div className={this.props.childCssClass}>
+          <div className="small-12 small-centered columns">
             <form>
               <DatePicker className="datepicker"
                 selected={this.state.selectedDate}

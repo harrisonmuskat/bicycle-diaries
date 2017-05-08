@@ -8,12 +8,9 @@ class App extends Component {
     super(props);
     this.state = {
       currentUser: null,
-      side: false,
-      mainCssClass: "small-6 small-centered columns",
-      childCssClass: "small-4 small-centered columns",
       rideFormCssClass: "hidden",
       currentActivity: null,
-      showStoryContainer: false
+      showStoryContainer: true
     }
 
     this.moveToSide = this.moveToSide.bind(this);
@@ -37,27 +34,17 @@ class App extends Component {
       })
       .then(response => response.json())
       .then(body => {
-        this.setState( {currentUser: body.user} )
+        this.setState( {currentUser: body} )
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   moveToSide(activity) {
-    if(!this.state.side) {
-      this.setState({ mainCssClass: "small-4 columns",
-                      childCssClass: "small-12 small-centered columns",
-                      rideFormCssClass: "small-8 columns ride-form",
-                      side: true,
-                      currentActivity: activity
-                    })
-    }
-    else if(this.state.side == true && this.state.currentActivity !== activity) {
-      this.setState( {currentActivity: activity} )
+    if(this.state.currentActivity !== activity) {
+      this.setState( {rideFormCssClass: "small-8 columns ride-form",
+                      currentActivity: activity} )
     } else {
-      this.setState({ mainCssClass: "small-6 small-centered columns",
-                      childCssClass: "small-4 small-centered columns",
-                      rideFormCssClass: "hidden"
-                    })
+      this.setState({rideFormCssClass: "hidden"})
     }
   }
 

@@ -9,6 +9,7 @@ gem 'jquery-rails'
 gem 'foundation-rails'
 gem 'omniauth-strava'
 gem 'strava-api-v3'
+gem 'active_model_serializers'
 
 group :development do
   gem 'listen', '~> 3.0.5'

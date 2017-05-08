@@ -33,8 +33,12 @@ class StoryContainer extends Component {
       stories = this.state.stories.map(story => {
         return (
           <StoryCard
-          title={story.title}
-          body={story.body}
+            key={story.id}
+            title={story.title}
+            body={story.body}
+            userFirstName={story.user.firstname}
+            userLastName={story.user.lastname}
+            userId={story.user.id}
           />
         )
       })

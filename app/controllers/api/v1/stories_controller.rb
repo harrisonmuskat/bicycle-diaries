@@ -3,10 +3,7 @@ class Api::V1::StoriesController < ApplicationController
 
   def index
     stories = Story.all.order(created_at: :desc)
-    # rides = stories.map do |story|
-    #   story.ride
-    # end
-    render :json => stories
+    render json: stories
   end
 
   def create

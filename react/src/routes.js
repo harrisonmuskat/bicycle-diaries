@@ -7,7 +7,7 @@ import ProfileContainer from '../containers/ProfileContainer';
 let routes = (
   <Route path="/" component={Layout}>
     <IndexRoute component={App} />
-    <Route path="/profile" component={ProfileContainer} />
+    <Route path="/users/:userId" component={ProfileContainer}/>
   </Route>
 )
 
