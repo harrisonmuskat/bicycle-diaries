@@ -17,7 +17,6 @@ class MapComponent extends Component {
         strokeWeight: 4,
         path: decodedPolyline
       });
-      debugger;
       drawnPolyline.setMap(map);
     }
   }

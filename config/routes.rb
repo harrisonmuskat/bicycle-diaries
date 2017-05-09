@@ -9,8 +9,8 @@ Rails.application.routes.draw do
       resources :users, only: [:show]
       get '/user', to: 'users#getcurrentuser'
       get '/:user_id/rides', to: 'rides#userrides'
-      resources :rides, only: [:index, :create, :show]
-      resources :stories, only: [:index, :create]
+      resources :rides, only: [:index, :create, :show, :destroy]
+      resources :stories, only: [:index, :create, :update]
     end
   end
 

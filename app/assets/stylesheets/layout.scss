@@ -11,6 +11,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .map-title {
   font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
 }
 
 // fix PR
@@ -26,6 +27,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat', sans-serif;
   font-size: 1.25em;
   text-align: center;
+  font-weight: 700;
 }
 
 .form-field {
@@ -70,6 +72,8 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 1em;
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.30);
   background-color: $light-gray;
+  position: absolute;
+  z-index: 100;
 }
 
 .datepicker {

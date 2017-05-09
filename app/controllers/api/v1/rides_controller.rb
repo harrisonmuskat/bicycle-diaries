@@ -40,6 +40,11 @@ class Api::V1::RidesController < ApplicationController
     render json: ride
   end
 
+  def destroy
+    Ride.destroy(params[:id])
+    render json: {message: "Ride and story deleted!"}
+  end
+
   def userrides
     user = User.find(params[:user_id])
     rides = Ride.where(user: user)
