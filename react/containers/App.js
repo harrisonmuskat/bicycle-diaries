@@ -10,12 +10,14 @@ class App extends Component {
       currentUser: null,
       rideFormCssClass: "hidden",
       currentActivity: null,
-      showStoryContainer: true
+      showStoryContainer: true,
+      stories: {}
     }
 
     this.showRideForm = this.showRideForm.bind(this);
     this.handleFormShift = this.handleFormShift.bind(this);
     this.sleep = this.sleep.bind(this);
+    this.fetchStories = this.fetchStories.bind(this);
   }
 
   componentWillMount() {
@@ -51,9 +53,28 @@ class App extends Component {
   handleFormShift() {
     this.sleep(2000).then(() => {
         this.setState( {rideFormCssClass: "hidden",
-                        showStoryContainer: true}
+                        showStoryContainer: true},
+                        this.fetchStories()
                       )
     });
+  }
+
+  fetchStories() {
+    fetch('/api/v1/stories')
+    .then(response => {
+      if(response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+        error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState( {stories: body} )
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   sleep(time) {
@@ -74,8 +95,10 @@ class App extends Component {
       )
     } else {
       let stories;
-      if(this.state.showStoryContainer) {
-        stories = <StoryContainer/>;
+      if(this.state.showStoryContainer && this.state.stories.length > 0) {
+        stories = <StoryContainer
+                    storyList={this.state.stories}
+                  />;
       }
       return(
         <div className="row">

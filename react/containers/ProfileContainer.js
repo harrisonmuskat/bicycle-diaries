@@ -81,7 +81,7 @@ class ProfileContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      this.setState( {message: body.message} )
+      this.setState( {message: body.message}, this.fetchProfileUser() )
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
@@ -118,10 +118,6 @@ class ProfileContainer extends Component {
         )
       });
     }
-    let callout;
-    if(this.state.message !== "") {
-      callout = <div className="callout success">{this.state.message}</div>
-    }
     return(
       <div>
         <div className="row">
@@ -153,7 +149,6 @@ class ProfileContainer extends Component {
         <div className="row">
           <div className="small-6 columns">
             <h4 className="profile-header">My Stories</h4>
-              {callout}
               <div className="scrollbar" id="style1">
                 <div className="force-overflow">
                   {stories}
