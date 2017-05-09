@@ -7,7 +7,6 @@ class StoryContainer extends Component {
   }
 
   render() {
-    debugger;
     let stories;
     if(this.props.storyList.length > 0){
       stories = this.props.storyList.map(story => {
