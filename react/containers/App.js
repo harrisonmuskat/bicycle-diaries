@@ -39,6 +39,7 @@ class App extends Component {
         this.setState( {currentUser: body} )
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
+    this.fetchStories();
   }
 
   showRideForm(activity) {
