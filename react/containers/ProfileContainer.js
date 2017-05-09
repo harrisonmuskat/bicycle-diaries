@@ -7,15 +7,23 @@ class ProfileContainer extends Component {
     super(props);
     this.state = {
       profileUser: {},
-      currentUser: {}
+      currentUser: {},
+      stories: [],
+      message: ""
     }
 
     this.onButtonClick=this.onButtonClick.bind(this);
+    this.fetchProfileUser=this.fetchProfileUser.bind(this);
     this.fetchCurrentUser=this.fetchCurrentUser.bind(this);
     this.deleteRide=this.deleteRide.bind(this);
   }
 
   componentDidMount() {
+    this.fetchProfileUser();
+    this.fetchCurrentUser();
+  }
+
+  fetchProfileUser() {
     fetch(`/api/v1/users/${this.props.params.userId}`, {
           credentials: 'same-origin',
           method: 'GET'
@@ -31,10 +39,10 @@ class ProfileContainer extends Component {
       })
       .then(response => response.json())
       .then(body => {
-        this.setState( {profileUser: body} );
+        this.setState( {profileUser: body,
+                        stories: body.stories} );
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
-      this.fetchCurrentUser();
   }
 
   fetchCurrentUser() {
@@ -73,7 +81,7 @@ class ProfileContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      debugger;
+      this.setState( {message: body.message} )
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
@@ -94,8 +102,8 @@ class ProfileContainer extends Component {
     if(this.state.profileUser.rides !== undefined) {
       rides = this.state.profileUser.rides.length;
     }
-    if(this.state.profileUser.stories !== undefined) {
-      stories = this.state.profileUser.stories.map(story => {
+    if(this.state.stories !== undefined) {
+      stories = this.state.stories.map(story => {
         return (
           <ProfileStoryCard
           key={story.id}
@@ -109,6 +117,10 @@ class ProfileContainer extends Component {
           />
         )
       });
+    }
+    let callout;
+    if(this.state.message !== "") {
+      callout = <div className="callout success">{this.state.message}</div>
     }
     return(
       <div>
@@ -141,6 +153,7 @@ class ProfileContainer extends Component {
         <div className="row">
           <div className="small-6 columns">
             <h4 className="profile-header">My Stories</h4>
+              {callout}
               <div className="scrollbar" id="style1">
                 <div className="force-overflow">
                   {stories}
