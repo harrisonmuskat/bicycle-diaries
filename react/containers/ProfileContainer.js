@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import ProfileStoryCard from '../components/ProfileStoryCard';
+import ProfilePersonCard from '../components/ProfilePersonCard';
 
 class ProfileContainer extends Component {
   constructor(props) {
@@ -8,19 +9,26 @@ class ProfileContainer extends Component {
     this.state = {
       profileUser: {},
       currentUser: {},
+      allUsers: [],
       stories: [],
+      profileUserFriends: [],
       message: ""
     }
 
     this.onButtonClick=this.onButtonClick.bind(this);
     this.fetchProfileUser=this.fetchProfileUser.bind(this);
     this.fetchCurrentUser=this.fetchCurrentUser.bind(this);
+    this.fetchAllUsers = this.fetchAllUsers.bind(this);
     this.deleteRide=this.deleteRide.bind(this);
+    this.onFriendClick=this.onFriendClick.bind(this);
+    this.addFriend=this.addFriend.bind(this);
+    this.destroyFriendship=this.destroyFriendship.bind(this);
   }
 
   componentDidMount() {
     this.fetchProfileUser();
     this.fetchCurrentUser();
+    this.fetchAllUsers();
   }
 
   fetchProfileUser() {
@@ -40,7 +48,8 @@ class ProfileContainer extends Component {
       .then(response => response.json())
       .then(body => {
         this.setState( {profileUser: body,
-                        stories: body.stories} );
+                        stories: body.stories,
+                        profileUserFriends: body.friends} );
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
@@ -62,6 +71,27 @@ class ProfileContainer extends Component {
       .then(response => response.json())
       .then(body => {
         this.setState( {currentUser: body} );
+      })
+      .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
+  fetchAllUsers() {
+    fetch(`/api/v1/users`, {
+          credentials: 'same-origin',
+          method: 'GET'
+      })
+      .then(response => {
+        if(response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+              error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => response.json())
+      .then(body => {
+        this.setState( {allUsers: body} );
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
@@ -91,7 +121,70 @@ class ProfileContainer extends Component {
     if(event.target.name === "delete") {
       this.deleteRide(id);
     } else if(event.target.name === "edit") {
-      alert("Implement this!")
+      alert("Implement this!");
+    }
+  }
+
+  addFriend(jsonPayload) {
+    fetch('/api/v1/friendships', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: jsonPayload
+    })
+    .then(response => {
+      if(response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+        error = new Error(errorMessage)
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState( {message: body.message}, this.fetchProfileUser() )
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
+  destroyFriendship(jsonPayload) {
+    fetch('/api/v1/friendship', {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: jsonPayload
+    })
+    .then(response => {
+      if(response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+        error = new Error(errorMessage)
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState( {message: body.message}, this.fetchProfileUser() )
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`));
+  }
+
+  onFriendClick(id, event){
+    event.preventDefault();
+    let jsonBody = JSON.stringify({
+      currentUserId: this.state.currentUser.id,
+      friendRequestUserId: id
+    })
+    if(event.target.name === "friend"){
+      this.destroyFriendship(jsonBody)
+    } else {
+      this.addFriend(jsonBody);
     }
   }
 
@@ -99,6 +192,7 @@ class ProfileContainer extends Component {
     let actual_time = moment(this.state.profileUser.created_at).format("dddd, MMMM Do YYYY");
     let rides;
     let stories;
+    let allUsers;
     if(this.state.profileUser.rides !== undefined) {
       rides = this.state.profileUser.rides.length;
     }
@@ -106,17 +200,42 @@ class ProfileContainer extends Component {
       stories = this.state.stories.map(story => {
         return (
           <ProfileStoryCard
-          key={story.id}
-          storyId={story.id}
-          title={story.title}
-          body={story.body}
-          rideId={story.ride_id}
-          onClick={this.onButtonClick}
-          storyUserId={this.state.profileUser.id}
-          currentUserId={this.state.currentUser.id}
+            key={story.id}
+            storyId={story.id}
+            title={story.title}
+            body={story.body}
+            rideId={story.ride_id}
+            onClick={this.onButtonClick}
+            storyUserId={this.state.profileUser.id}
+            currentUserId={this.state.currentUser.id}
           />
         )
       });
+    }
+    if(this.state.allUsers.length > 0) {
+      allUsers = this.state.allUsers.map(user => {
+        if(user.id !== this.state.profileUser.id) {
+          let friend;
+          friend = this.state.profileUserFriends.find( function(friend) {
+            return friend.id === user.id;
+          })
+          let friendBool = false;
+          if (friend) {
+            friendBool = true;
+          }
+          return(
+            <ProfilePersonCard
+              key={user.id}
+              userId={user.id}
+              userProfile={user.profile}
+              userName={`${user.firstname} ${user.lastname}`}
+              userRides={user.rides.length}
+              onClick={this.onFriendClick}
+              friend={friendBool}
+            />
+          )
+        }
+      })
     }
     return(
       <div>
@@ -147,7 +266,7 @@ class ProfileContainer extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="small-6 columns">
+          <div className="small-12 medium-6 large-6 columns">
             <h4 className="profile-header">My Stories</h4>
               <div className="scrollbar" id="style1">
                 <div className="force-overflow">
@@ -155,8 +274,13 @@ class ProfileContainer extends Component {
                 </div>
               </div>
           </div>
-          <div className="small-6 columns">
+          <div className="small-12 medium-6 large-6 columns">
             <h4 className="profile-header">Biking Buddies</h4>
+              <div className="scrollbar" id="style1">
+                <div className="force-overflow">
+                  {allUsers}
+                </div>
+              </div>
           </div>
         </div>
       </div>

@@ -6,18 +6,28 @@ class ProfilePersonCard extends Component {
   }
 
   render() {
-    let buttons =
+    let buttons;
+    if(this.props.friend) {
+      buttons =
       <div className="small-5 offset-1 columns">
         <div className="small expanded button-group">
-          <button className="button success" name="friend" onClick={(event) => this.props.onClick(this.props.userId, event)}>Friend Request</button>
+          <button className="button success" name="friend" onClick={(event) => this.props.onClick(this.props.userId, event)}>Friend</button>
         </div>
       </div>
+    } else {
+      buttons =
+      <div className="small-5 offset-1 columns">
+        <div className="small expanded button-group">
+          <button className="button success" name="friendRequest" onClick={(event) => this.props.onClick(this.props.userId, event)}>Friend Request</button>
+        </div>
+      </div>
+    }
     return(
       <div className="card story-card">
         <div className="card-divider story-title">
           <div className="row">
             <div className="small-6 columns">
-              {this.props.userProfile}
+              <img src={this.props.userProfile} alt="profile" />
               {this.props.userName}
             </div>
             {buttons}
