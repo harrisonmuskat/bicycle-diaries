@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
   has_many :rides
   has_many :stories
+  has_many :friendships, foreign_key: :user_id, class_name: "Friendship"
+  has_many :friends, through: :friendships
 
   def self.find_or_create_from_auth_hash(auth)
     User.find_or_create_by(provider: auth["provider"], uid: auth["extra"]["raw_info"]["id"]) do |user|

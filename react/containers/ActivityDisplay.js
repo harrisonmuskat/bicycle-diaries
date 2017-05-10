@@ -69,6 +69,8 @@ class ActivityDisplay extends Component {
     let helpText;
     if(activities.length > 0) {
       helpText = "Select a ride to begin!";
+    } else if(activities.length === 0) {
+      helpText = "No rides found on or after this date."
     }
     return (
       <div>

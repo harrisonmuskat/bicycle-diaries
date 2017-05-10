@@ -38,6 +38,9 @@ class MapComponent extends Component {
   render() {
     let center = {lat: 42.36, lng: -71.056};
     let zoom = 11;
+    let map_options = {
+      scrollwheel: false
+    }
     return(
       <div className="map-container">
         <GoogleMap
@@ -45,6 +48,7 @@ class MapComponent extends Component {
                              libraries: "geometry"}}
           center={center}
           defaultZoom={zoom}
+          options={map_options}
           onGoogleApiLoaded={({map, maps}) => this.renderPolyline(map, maps)}
           yesIWantToUseGoogleMapApiInternals
         >

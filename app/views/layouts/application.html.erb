@@ -32,6 +32,16 @@
     <p class="alert"><%= alert %></p> -->
     <h1 class="site-title">Bicycle Diaries</h1>
     <%= yield %>
-    <div id="app" class="row"></div>
+    <% if !logged_in? %>
+      <div class="row">
+        <div class="small-4 small-centered columns">
+          <div class="callout primary large sign-in">
+            Please sign in to post your first story!
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div id="app" class="row"></div>
+    <% end %>
   </body>
 </html>
