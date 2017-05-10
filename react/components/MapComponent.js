@@ -4,8 +4,12 @@ import GoogleMap from 'google-map-react';
 class MapComponent extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      mapLoaded: false
+    }
 
     this.renderPolyline = this.renderPolyline.bind(this);
+    this.focusOnPolyline = this.focusOnPolyline.bind(this);
   }
 
   renderPolyline(map, maps) {
@@ -18,7 +22,17 @@ class MapComponent extends Component {
         path: decodedPolyline
       });
       drawnPolyline.setMap(map);
+      this.focusOnPolyline(this.props.polyline, drawnPolyline, map);
     }
+  }
+
+  focusOnPolyline(polyline, drawnPolyline, map) {
+    let bounds = new google.maps.LatLngBounds();
+    let points = drawnPolyline.getPath().getArray();
+    for(let i=0; i<points.length; i++) {
+      bounds.extend(points[i]);
+    }
+    map.fitBounds(bounds);
   }
 
   render() {
