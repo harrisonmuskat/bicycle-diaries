@@ -84,40 +84,28 @@ class App extends Component {
 
 
   render() {
-    if(this.state.currentUser == null) {
-      return(
-        <div className="row">
-          <div className="small-4 small-centered columns">
-            <div className="callout primary large sign-in">
-              Please sign in to post your first story!
-            </div>
-          </div>
-        </div>
-      )
-    } else {
-      let stories;
-      if(this.state.showStoryContainer && this.state.stories.length > 0) {
-        stories = <StoryContainer
-                    storyList={this.state.stories}
-                  />;
-      }
-      return(
-        <div className="row">
-          <RideFormContainer
-            rideFormCssClass={this.state.rideFormCssClass}
-            activity={this.state.currentActivity}
-            handleFormShift={this.handleFormShift}
-          />
-          {stories}
-          <ActivityFormContainer
-            currentUser={this.state.currentUser}
-            showRideForm={this.showRideForm}
-            mainCssClass={this.state.mainCssClass}
-            childCssClass={this.state.childCssClass}
-          />
-        </div>
-      );
+    let stories;
+    if(this.state.showStoryContainer && this.state.stories.length > 0) {
+      stories = <StoryContainer
+                  storyList={this.state.stories}
+                />;
     }
+    return(
+      <div className="row">
+        <RideFormContainer
+          rideFormCssClass={this.state.rideFormCssClass}
+          activity={this.state.currentActivity}
+          handleFormShift={this.handleFormShift}
+        />
+        {stories}
+        <ActivityFormContainer
+          currentUser={this.state.currentUser}
+          showRideForm={this.showRideForm}
+          mainCssClass={this.state.mainCssClass}
+          childCssClass={this.state.childCssClass}
+        />
+      </div>
+    );
   }
 }
 

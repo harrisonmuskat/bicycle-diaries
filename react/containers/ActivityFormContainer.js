@@ -46,6 +46,7 @@ class ActivityFormContainer extends Component {
   }
 
   render() {
+    
     return(
       <div className="small-4 columns">
         <h2 className="form-header"> Pick a date to retrieve all activities beginning from that day: </h2>

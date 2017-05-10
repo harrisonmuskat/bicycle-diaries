@@ -4,4 +4,5 @@ class UserSerializer < ActiveModel::Serializer
 
   has_many :rides
   has_many :stories
+  has_many :friends
 end
