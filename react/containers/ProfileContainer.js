@@ -193,6 +193,7 @@ class ProfileContainer extends Component {
     let rides;
     let stories;
     let allUsers;
+    let friends;
     if(this.state.profileUser.rides !== undefined) {
       rides = this.state.profileUser.rides.length;
     }
@@ -232,10 +233,15 @@ class ProfileContainer extends Component {
               userRides={user.rides.length}
               onClick={this.onFriendClick}
               friend={friendBool}
+              profileUserId={this.state.profileUser.id}
+              currentUserId={this.state.currentUser.id}
             />
           )
         }
       })
+    }
+    if(this.state.profileUser.friends !== undefined) {
+      friends = this.state.profileUser.friends.length;
     }
     return(
       <div>
@@ -258,7 +264,7 @@ class ProfileContainer extends Component {
                   <p>Rides</p>
                 </div>
                 <div className="card-profile-stats-statistic">
-                  <span className="stat">0</span>
+                  <span className="stat">{friends}</span>
                   <p>Biking buddies</p>
                 </div>
               </div>
