@@ -7,28 +7,32 @@ class ProfilePersonCard extends Component {
 
   render() {
     let buttons;
-    if(this.props.friend) {
-      buttons =
-      <div className="small-5 offset-1 columns">
-        <div className="small expanded button-group">
-          <button className="button success" name="friend" onClick={(event) => this.props.onClick(this.props.userId, event)}>Friend</button>
+    if(this.props.profileUserId === this.props.currentUserId) {
+      if(this.props.friend) {
+        buttons =
+        <div className="small-5 offset-1 columns">
+          <div className="small expanded button-group">
+            <button className="button success" name="friend" onClick={(event) => this.props.onClick(this.props.userId, event)}>Friend</button>
+          </div>
         </div>
-      </div>
-    } else {
-      buttons =
-      <div className="small-5 offset-1 columns">
-        <div className="small expanded button-group">
-          <button className="button success" name="friendRequest" onClick={(event) => this.props.onClick(this.props.userId, event)}>Friend Request</button>
+      } else {
+        buttons =
+        <div className="small-5 offset-1 columns">
+          <div className="small expanded button-group">
+            <button className="button success" name="friendRequest" onClick={(event) => this.props.onClick(this.props.userId, event)}>Friend Request</button>
+          </div>
         </div>
-      </div>
+      }
     }
     return(
       <div className="card story-card">
         <div className="card-divider story-title">
           <div className="row">
             <div className="small-6 columns">
-              <img src={this.props.userProfile} alt="profile" />
-              {this.props.userName}
+              <img className="user-profile-card-pic" src={this.props.userProfile} alt="profile" />
+              <div className= "user-profile-card-intro-text">
+                <a href={`/users/${this.props.userId}`}>{this.props.userName}</a>
+              </div>
             </div>
             {buttons}
           </div>
@@ -36,7 +40,7 @@ class ProfilePersonCard extends Component {
         <div className="card-section">
           <div className="row">
             <div className="small-12 columns">
-              {this.props.userRides}
+              Stories: {this.props.userRides}
             </div>
           </div>
         </div>
