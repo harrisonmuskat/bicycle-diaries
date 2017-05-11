@@ -47,7 +47,7 @@ class RideFormContainer extends Component {
     event.preventDefault();
     this.setState( {success: ""} )
     this.validatePayload();
-    let storyPayload = JSON.stringify({name: this.state.activityName, body: this.state.activityBody, ride_id: this.props.activity.id})
+    let storyPayload = JSON.stringify({title: this.state.activityName, body: this.state.activityBody, ride_id: this.props.activity.id})
     if(this.state.errors.length == 0) {
       fetch("/api/v1/stories", {
         method: 'POST',
@@ -114,8 +114,8 @@ class RideFormContainer extends Component {
             handlerFunction={this.handleBodyFieldChange}
             placeholder='Tell your story here!'
           />
-          <input className="button" type="submit" value="Post!"
-          />
+          <input className="button" type="submit" value="Post!"/>
+          <p className="button" onClick={this.handleClearForm}>Clear Form</p>
         </form>
       </div>
     )
