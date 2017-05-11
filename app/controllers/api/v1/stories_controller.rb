@@ -6,6 +6,12 @@ class Api::V1::StoriesController < ApplicationController
     render json: stories
   end
 
+  def show
+    story = Story.find(params["id"])
+    ride = Ride.find(story.ride_id)
+    render json: ride
+  end
+
   def create
     ride = Ride.find_by(ride_id: params["ride_id"].to_s)
     user = ride.user
