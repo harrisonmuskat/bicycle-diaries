@@ -7,8 +7,6 @@ class StoryShowComponent extends Component {
     super(props);
   }
 
-
-
   render() {
     return(
       <div className="card story-card">
