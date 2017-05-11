@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 class ProfileStoryCard extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class ProfileStoryCard extends Component {
       buttons =
       <div className="small-5 offset-1 columns">
         <div className="small expanded button-group">
-          <button className="button success" name="edit" onClick={(event) => this.props.onClick(this.props.storyId, event)}>Edit Story</button>
+          <Link to={`/stories/${this.props.storyId}`} className="button success">Edit Story</Link>
           <button className="button alert" name="delete" onClick={(event) => this.props.onClick(this.props.rideId, event)}>Delete Ride</button>
         </div>
       </div>

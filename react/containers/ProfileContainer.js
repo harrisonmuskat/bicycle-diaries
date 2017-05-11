@@ -120,8 +120,6 @@ class ProfileContainer extends Component {
     event.preventDefault();
     if(event.target.name === "delete") {
       this.deleteRide(id);
-    } else if(event.target.name === "edit") {
-      alert("Implement this!");
     }
   }
 
