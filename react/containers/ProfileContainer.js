@@ -273,7 +273,7 @@ class ProfileContainer extends Component {
           <div className="small-12 medium-6 large-6 columns">
             <h4 className="profile-header">My Stories</h4>
               <div className="scrollbar" id="style1">
-                <div className="force-overflow">
+                <div>
                   {stories}
                 </div>
               </div>
@@ -281,7 +281,7 @@ class ProfileContainer extends Component {
           <div className="small-12 medium-6 large-6 columns">
             <h4 className="profile-header">Biking Buddies</h4>
               <div className="scrollbar" id="style1">
-                <div className="force-overflow">
+                <div>
                   {allUsers}
                 </div>
               </div>

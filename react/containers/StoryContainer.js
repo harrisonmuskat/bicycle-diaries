@@ -13,6 +13,7 @@ class StoryContainer extends Component {
         return (
           <StoryCard
             key={story.id}
+            id={story.id}
             title={story.title}
             body={story.body}
             userFirstName={story.user.firstname}

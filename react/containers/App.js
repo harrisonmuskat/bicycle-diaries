@@ -52,7 +52,7 @@ class App extends Component {
   }
 
   handleFormShift() {
-    this.sleep(2000).then(() => {
+    this.sleep(500).then(() => {
         this.setState( {rideFormCssClass: "hidden",
                         showStoryContainer: true},
                         this.fetchStories()
