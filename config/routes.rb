@@ -10,9 +10,12 @@ Rails.application.routes.draw do
       get '/user', to: 'users#getcurrentuser'
       get '/:user_id/rides', to: 'rides#userrides'
       resources :rides, only: [:index, :create, :show, :destroy]
-      resources :stories, only: [:index, :create, :update, :edit, :show]
+      resources :stories, only: [:index, :create, :update, :edit, :show] do
+        resources :images, only: [:index]
+      end
       resources :friendships, only: [:create]
       resource :friendship, only: [:destroy]
+      resources :images, only: [:create]
     end
   end
 

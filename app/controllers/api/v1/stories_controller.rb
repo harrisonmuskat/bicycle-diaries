@@ -22,14 +22,6 @@ class Api::V1::StoriesController < ApplicationController
       body: params["body"]
     )
     if story.save!
-      binding.pry
-      # params["images"].each do |image|
-      #   new_image = Image.new(
-      #     story: story,
-      #     image_url: image["preview"]
-      #   )
-      #   new_image.save!
-      # end
       message = { message: "Story saved successfully!" }
     else
       message = story.errors.full_messages

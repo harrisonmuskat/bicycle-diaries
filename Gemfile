@@ -10,8 +10,11 @@ gem 'foundation-rails'
 gem 'omniauth-strava'
 gem 'strava-api-v3'
 gem 'active_model_serializers'
+gem 'fog-aws'
 gem 'carrierwave'
+gem 'carrierwave-base64'
 gem 'mini_magick'
+gem 'data_uri'
 
 group :development do
   gem 'listen', '~> 3.0.5'

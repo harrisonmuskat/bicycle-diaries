@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import TextField from '../components/TextField';
-import TextArea from '../components/TextArea'
+import TextArea from '../components/TextArea';
+import Dropzone from 'react-dropzone';
 
 class EditStoryFormContainer extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class EditStoryFormContainer extends Component {
     this.state = {
       activityName: "",
       activityBody: "",
+      files: [],
       errors: [],
       success: ""
     }
@@ -19,6 +21,8 @@ class EditStoryFormContainer extends Component {
     this.handleTitleFieldChange=this.handleTitleFieldChange.bind(this);
     this.handleBodyFieldChange=this.handleBodyFieldChange.bind(this);
     this.handleClearForm=this.handleClearForm.bind(this);
+    this.onDrop = this.onDrop.bind(this);
+    this.handleImageSubmit=this.handleImageSubmit.bind(this);
   }
 
   fetchStoryToEdit() {
@@ -41,7 +45,6 @@ class EditStoryFormContainer extends Component {
   }
 
   handleFormSubmit(event) {
-    debugger;
     event.preventDefault();
     this.setState( {success: ""} )
     let storyPayload = JSON.stringify({title: this.state.activityName, body: this.state.activityBody})
@@ -64,6 +67,30 @@ class EditStoryFormContainer extends Component {
         }
       })
     }
+  }
+
+  onDrop(file) {
+    let newFiles = this.state.files;
+    newFiles.push(file[0])
+    this.setState({files: newFiles});
+  }
+
+  handleImageSubmit(event) {
+    event.preventDefault();
+    let formData = new FormData();
+
+    for(let i = 0; i<this.state.files.length; i++) {
+      formData.append("image_url", this.state.files[i])
+    }
+    formData.append("story_id", this.props.params.id)
+    fetch('/api/v1/images', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(body => {
+      debugger;
+    })
   }
 
   validatePayload() {
@@ -139,6 +166,19 @@ class EditStoryFormContainer extends Component {
           <input className="button" type="submit" value="Post!" />
           <p className="button" onClick={this.handleClearForm}>Clear Form</p>
         </form>
+
+        <form encType="multipart/form-data" onSubmit={this.handleImageSubmit}>
+          <Dropzone
+            name="dropzone"
+            onDrop={this.onDrop}
+            accept="image/jpg, image/png, image/jpeg, image/gif">
+              <p className="dropzone">Drop some files here or click to upload</p>
+              <p className="dropzone">Only .jpg, .jpeg, .png, and .gif files accepted.</p>
+          </Dropzone>
+          <p>{this.state.files.length} added</p>
+          <input className="button" type="submit" value="Add images!"/>
+        </form>
+
       </div>
     )
   }

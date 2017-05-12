@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import TextField from '../components/TextField';
 import TextArea from '../components/TextArea';
-import Dropzone from 'react-dropzone';
 
 class RideFormContainer extends Component {
   constructor(props) {
@@ -9,7 +8,6 @@ class RideFormContainer extends Component {
     this.state = {
       activityName: "",
       activityBody: "",
-      files: [],
       errors: []
     }
 
@@ -18,7 +16,6 @@ class RideFormContainer extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleClearForm = this.handleClearForm.bind(this);
     this.validatePayload = this.validatePayload.bind(this);
-    this.onDrop = this.onDrop.bind(this);
   }
 
   handleTitleFieldChange(event) {
@@ -27,18 +24,6 @@ class RideFormContainer extends Component {
 
   handleBodyFieldChange(event) {
     this.setState( {activityBody: event.target.value} )
-  }
-
-  onDrop(file) {
-    let newFiles = this.state.files;
-    let reader = new FileReader();
-
-    reader.addEventListener('loadend', () => {
-      newFiles.push(this.result)
-      console.log(newFiles);
-      console.log(this.result)
-    });
-    reader.readAsDataURL(file[0]);
   }
 
   validatePayload() {
@@ -60,7 +45,7 @@ class RideFormContainer extends Component {
   handleFormSubmit(event) {
     event.preventDefault();
     this.validatePayload();
-    let storyPayload = JSON.stringify({title: this.state.activityName, body: this.state.activityBody, ride_id: this.props.activity.id, images: this.state.files})
+    let storyPayload = JSON.stringify({title: this.state.activityName, body: this.state.activityBody, ride_id: this.props.activity.id})
     if(this.state.errors.length == 0) {
       fetch("/api/v1/stories", {
         method: 'POST',
@@ -77,8 +62,7 @@ class RideFormContainer extends Component {
           this.setState( {errors: newErrors} )
         } else {
           this.setState( {activityName: "",
-                          activityBody: "",
-                          files: []} )
+                          activityBody: ""} )
           this.props.handleFormShift();
         }
       })
@@ -89,7 +73,6 @@ class RideFormContainer extends Component {
     this.setState({
       activityName: "",
       activityBody: "",
-      files: [],
       errors: []
     })
   }
@@ -123,15 +106,6 @@ class RideFormContainer extends Component {
             handlerFunction={this.handleBodyFieldChange}
             placeholder='Tell your story here!'
           />
-          <section>
-            <Dropzone
-              onDrop={this.onDrop}
-              accept="image/jpg, image/png, image/jpeg, image/gif"
-            >
-              <p>Drop some files here or click to upload</p>
-              <p>Only .jpg, .jpeg, .png, and .gif files accepted.</p>
-            </Dropzone>
-          </section>
           <input className="button" type="submit" value="Post!"/>
           <p className="button" onClick={this.handleClearForm}>Clear Form</p>
         </form>

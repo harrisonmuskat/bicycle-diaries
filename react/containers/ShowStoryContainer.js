@@ -11,11 +11,12 @@ class ShowStoryContainer extends Component {
       userId: null,
       userFirstName: null,
       userLastName: null,
-      polyline: ""
+      polyline: "",
+      storyImages: []
     }
 
     this.fetchStoryToShow=this.fetchStoryToShow.bind(this);
-    this.fetchPolyline=this.fetchPolyline.bind(this);
+    this.fetchStoryImages=this.fetchStoryImages.bind(this);
   }
 
   fetchStoryToShow() {
@@ -31,36 +32,38 @@ class ShowStoryContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
+      debugger;
       this.setState( {rideId: body.story.ride_id,
                       title: body.story.title,
                       body: body.story.body,
                       userId: body.user.id,
                       userFirstName: body.user.firstname,
-                      userLastName: body.user.lastname}, this.fetchPolyline(body.story.ride_id));
+                      userLastName: body.user.lastname,
+                      polyline: body.map.summary_polyline} );
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
-  fetchPolyline(id) {
-    fetch(`/api/v1/rides/${id}`)
+  fetchStoryImages() {
+    fetch(`/api/v1/stories/${this.props.params.id}/images`)
     .then(response => {
       if(response.ok) {
         return response;
       } else {
         let errorMessage = `${response.status} (${response.statusText})`,
-        error = new Error(errorMessage);
-        throw(error);
+        error = newError(errorMessage);
       }
     })
     .then(response => response.json())
     .then(body => {
-      this.setState( {polyline: body.map.summary_polyline} )
+      let imageArray = body;
+      this.setState( {storyImages: imageArray} )
     })
-    .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
 
   componentWillMount() {
     this.fetchStoryToShow();
+    this.fetchStoryImages();
   }
 
 
@@ -74,6 +77,7 @@ class ShowStoryContainer extends Component {
         userFirstName={this.state.userFirstName}
         userLastName={this.state.userLastName}
         polyline={this.state.polyline}
+        images={this.state.storyImages}
       />
     )
   }

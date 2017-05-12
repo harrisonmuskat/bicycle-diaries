@@ -12,14 +12,18 @@ class ProfilePersonCard extends Component {
         buttons =
         <div className="small-5 offset-1 columns">
           <div className="small expanded button-group">
-            <button className="button success" name="friend" onClick={(event) => this.props.onClick(this.props.userId, event)}>Friend</button>
+            <button className="button success" name="friend" onClick={(event) => this.props.onClick(this.props.userId, event)}>
+              <i className="icon-heart"></i>     Friend
+            </button>
           </div>
         </div>
       } else {
         buttons =
         <div className="small-5 offset-1 columns">
           <div className="small expanded button-group">
-            <button className="button success" name="friendRequest" onClick={(event) => this.props.onClick(this.props.userId, event)}>Friend Request</button>
+            <button className="button success" name="friendRequest" onClick={(event) => this.props.onClick(this.props.userId, event)}>
+              <i className="icon-heart-empty"></i>    Friend Request
+            </button>
           </div>
         </div>
       }

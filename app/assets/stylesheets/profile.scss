@@ -7,6 +7,12 @@
   font-weight: 900;
 }
 
+.story-header {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5em;
+  font-weight: 900;
+}
+
 .card-profile-stats {
   border: 1px solid $medium-gray;
   margin: 0 0 1.25rem;
@@ -84,7 +90,7 @@
 
 .scrollbar
 {
-	height: inherit;
+	height: 800px;
 	overflow-y: scroll;
 	margin-bottom: 25px;
   padding-right: 1em;
@@ -119,4 +125,9 @@
   flex-direction: row;
   flex-wrap: wrap;
   text-align: left;
+}
+
+.dropzone {
+  color: white;
+  font-weight: bolder;
 }
