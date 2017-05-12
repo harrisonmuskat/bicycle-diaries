@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import StoryCard from '../components/StoryCard';
+import moment from 'moment';
 
 class StoryContainer extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class StoryContainer extends Component {
             userLastName={story.user.lastname}
             userId={story.user.id}
             rideId={story.ride.id}
+            rideDate={moment(story.ride.start_date).format('LL')}
           />
         )
       })

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import TextField from '../components/TextField'
-import TextArea from '../components/TextArea'
+import TextField from '../components/TextField';
+import TextArea from '../components/TextArea';
 
 class RideFormContainer extends Component {
   constructor(props) {
@@ -57,7 +57,7 @@ class RideFormContainer extends Component {
       })
       .then(response => response.json())
       .then(body => {
-        if(body.length !== 0) {
+        if(body.message !== "Story saved successfully!") {
           let newErrors = body
           this.setState( {errors: newErrors} )
         } else {

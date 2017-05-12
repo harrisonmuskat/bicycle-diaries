@@ -15,13 +15,17 @@ class Api::V1::StoriesController < ApplicationController
   def create
     ride = Ride.find_by(ride_id: params["ride_id"].to_s)
     user = ride.user
-    story = Story.create(
+    story = Story.new(
       ride: ride,
       user: user,
       title: params["title"],
       body: params["body"]
     )
-    message = story.errors.full_messages
+    if story.save!
+      message = { message: "Story saved successfully!" }
+    else
+      message = story.errors.full_messages
+    end
     render json: message
   end
 
@@ -43,7 +47,9 @@ class Api::V1::StoriesController < ApplicationController
   private
 
   def story_params
-    params.require(:story).permit(:title, :body)
+    params.require(:story).permit(:title, :body, :images).merge(
+      ride: Ride.find(params["ride_id"])
+    )
   end
 
 end
