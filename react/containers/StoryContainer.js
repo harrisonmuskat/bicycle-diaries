@@ -27,7 +27,7 @@ class StoryContainer extends Component {
       })
     }
     return (
-      <div className="small-8 columns">
+      <div className={this.props.css}>
         <h2 className="form-header">Story Feed</h2>
         {stories}
       </div>

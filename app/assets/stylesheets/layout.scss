@@ -3,7 +3,7 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
-  background: url(barrel-on-57800.png) no-repeat center center fixed; 
+  background: url(barrel-on-5780.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -101,4 +101,19 @@ input {
 
 .map-container {
   height: 500px;
+}
+
+.title-link {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.title-link:hover {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.date-form {
+  background-color: rgba(230, 230, 230, .6);
+  border-radius: 1em;
 }

@@ -40,7 +40,7 @@ class StoryCard extends Component {
         <div className="card-divider story-title">
           <div className="row">
             <div className="small-4 columns">
-              {this.props.title}
+              <Link to={`/stories/${this.props.id}/show`}>{this.props.title}</Link>
             </div>
             <div className="small-5 columns">
               Ride date: {this.props.rideDate}

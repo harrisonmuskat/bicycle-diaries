@@ -32,7 +32,6 @@ class ShowStoryContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      debugger;
       this.setState( {rideId: body.story.ride_id,
                       title: body.story.title,
                       body: body.story.body,
@@ -61,7 +60,7 @@ class ShowStoryContainer extends Component {
     })
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchStoryToShow();
     this.fetchStoryImages();
   }
@@ -70,6 +69,7 @@ class ShowStoryContainer extends Component {
   render() {
     return(
       <StoryShowComponent
+        storyId={this.props.params.id}
         rideId={this.state.rideId}
         title={this.state.title}
         body={this.state.body}

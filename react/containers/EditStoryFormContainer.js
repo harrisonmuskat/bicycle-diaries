@@ -10,6 +10,7 @@ class EditStoryFormContainer extends Component {
     this.state = {
       activityName: "",
       activityBody: "",
+      rideId: "",
       files: [],
       errors: [],
       success: ""
@@ -39,7 +40,8 @@ class EditStoryFormContainer extends Component {
     .then(response => response.json())
     .then(body => {
       this.setState( {activityName: body.title,
-                      activityBody: body.body} );
+                      activityBody: body.body,
+                      rideId: body.ride_id} );
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
@@ -47,7 +49,7 @@ class EditStoryFormContainer extends Component {
   handleFormSubmit(event) {
     event.preventDefault();
     this.setState( {success: ""} )
-    let storyPayload = JSON.stringify({title: this.state.activityName, body: this.state.activityBody})
+    let storyPayload = JSON.stringify({title: this.state.activityName, body: this.state.activityBody, ride_id: this.state.rideId})
     if(this.validatePayload()) {
       fetch(`/api/v1/stories/${this.props.params.id}`, {
         method: 'PATCH',
@@ -64,6 +66,7 @@ class EditStoryFormContainer extends Component {
           this.setState( {errors: newErrors} )
         } else {
           this.setState( {success: "Story updated!"} )
+          browserHistory.push(`/stories/${this.props.params.id}/show`);
         }
       })
     }
@@ -80,7 +83,7 @@ class EditStoryFormContainer extends Component {
     let formData = new FormData();
 
     for(let i = 0; i<this.state.files.length; i++) {
-      formData.append("image_url", this.state.files[i])
+      formData.append(`image_url`, this.state.files[i])
     }
     formData.append("story_id", this.props.params.id)
     fetch('/api/v1/images', {
@@ -89,7 +92,9 @@ class EditStoryFormContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      debugger;
+      if(body.message = "Image added!") {
+        browserHistory.push(`/stories/${this.props.params.id}/show`);
+      }
     })
   }
 
@@ -169,13 +174,14 @@ class EditStoryFormContainer extends Component {
 
         <form encType="multipart/form-data" onSubmit={this.handleImageSubmit}>
           <Dropzone
-            name="dropzone"
+            name="image"
+            multiple={false}
             onDrop={this.onDrop}
             accept="image/jpg, image/png, image/jpeg, image/gif">
-              <p className="dropzone">Drop some files here or click to upload</p>
+              <p className="dropzone">Drop a file here or click to upload</p>
               <p className="dropzone">Only .jpg, .jpeg, .png, and .gif files accepted.</p>
           </Dropzone>
-          <p>{this.state.files.length} added</p>
+          <p>{this.state.files.length} photo added!</p>
           <input className="button" type="submit" value="Add images!"/>
         </form>
 
