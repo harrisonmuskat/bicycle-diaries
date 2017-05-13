@@ -86,9 +86,26 @@ class App extends Component {
   render() {
     let stories;
     if(this.state.showStoryContainer && this.state.stories.length > 0) {
-      stories = <StoryContainer
-                  storyList={this.state.stories}
-                />;
+      if(this.state.currentUser !== null && this.state.currentUser.message !== "Not signed in") {
+        stories = <StoryContainer
+                    storyList={this.state.stories}
+                    css="small-12 large-8 columns"
+                  />;
+      } else {
+        stories = <StoryContainer
+                    storyList={this.state.stories}
+                    css="small-12 large-8 small-centered columns"
+                  />;
+      }
+    }
+    let activityForm;
+    if(this.state.currentUser !== null && this.state.currentUser.message !== "Not signed in") {
+      activityForm = <ActivityFormContainer
+                      currentUser={this.state.currentUser}
+                      showRideForm={this.showRideForm}
+                      mainCssClass={this.state.mainCssClass}
+                      childCssClass={this.state.childCssClass}
+                    />
     }
     return(
       <div className="row">
@@ -98,12 +115,7 @@ class App extends Component {
           handleFormShift={this.handleFormShift}
         />
         {stories}
-        <ActivityFormContainer
-          currentUser={this.state.currentUser}
-          showRideForm={this.showRideForm}
-          mainCssClass={this.state.mainCssClass}
-          childCssClass={this.state.childCssClass}
-        />
+        {activityForm}
       </div>
     );
   }

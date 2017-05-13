@@ -22,7 +22,7 @@ class ProfileStoryCard extends Component {
         <div className="card-divider story-title">
           <div className="row">
             <div className="small-6 columns">
-              {this.props.title}
+              <Link to={`/stories/${this.props.storyId}/show`}>{this.props.title}</Link>
             </div>
             {buttons}
           </div>

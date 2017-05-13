@@ -13,10 +13,7 @@
   </head>
 
   <body>
-    <div class="top-bar">
-      <div class="top-bar-title">
-        <a href="/">Bicycle Diaries</a>
-      </div>
+    <div class="top-bar" id="menu">
       <div class="top-bar-right">
         <ul class="menu">
           <% if logged_in? %>
@@ -31,7 +28,7 @@
     </div>
     <!-- <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p> -->
-    <h1 class="site-title">Bicycle Diaries</h1>
+    <h1 class="site-title"><a href="/" class="title-link">Bicycle Diaries</a></h1>
     <%= yield %>
     <div id="app" class="row"></div>
   </body>

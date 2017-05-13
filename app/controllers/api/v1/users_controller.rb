@@ -12,7 +12,11 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def getcurrentuser
-    user = current_user
+    if current_user
+      user = current_user
+    else
+      user = {message: "Not signed in"}
+    end
     render json: user
   end
 

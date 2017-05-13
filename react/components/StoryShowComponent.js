@@ -10,7 +10,7 @@ class StoryShowComponent extends Component {
   render() {
     let images = this.props.images.map(image => {
       return(
-        <li><img src={`${image.image_url.url}`} alt="image" /></li>
+        <div className="column column-block"><img src={`${image.image_url.url}`} alt="image" /></div>
       )
     })
     return(
@@ -45,9 +45,9 @@ class StoryShowComponent extends Component {
           <div className="row">
             <div className="small-12 columns">
               <h1 className="story-header">Pictures from the Ride</h1>
-                <ul className="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
+                <div className="row small-up-2 medium-up-3 large-up-4">
                   {images}
-                </ul>
+                </div>
             </div>
           </div>
         </div>
